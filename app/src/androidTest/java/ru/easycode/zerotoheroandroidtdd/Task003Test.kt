@@ -25,8 +25,7 @@ class Task003Test {
     @Test
     fun test_change_parent() {
         onView(
-            allOf(
-                withId(R.id.titleTextView),
+            allOf(withId(R.id.titleTextView),
                 withText("I am an Android Developer!"),
                 withParent(isAssignableFrom(LinearLayout::class.java))
             )
