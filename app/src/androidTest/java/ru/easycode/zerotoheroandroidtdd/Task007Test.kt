@@ -25,7 +25,6 @@ class Task007Test {
 
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
-
     @Test
     fun test_keep_text() {
         onView(
