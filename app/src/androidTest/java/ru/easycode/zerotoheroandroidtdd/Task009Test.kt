@@ -1,5 +1,6 @@
 package ru.easycode.zerotoheroandroidtdd
 
+import android.util.Log
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -20,6 +21,7 @@ import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.math.log
 
 @RunWith(AndroidJUnit4::class)
 class Task009Test {
@@ -47,12 +49,14 @@ class Task009Test {
                 withParent(isAssignableFrom(LinearLayout::class.java)),
                 withParent(withId(R.id.rootLayout))
             )
-        ).check(isCompletelyBelow(withId(R.id.titleTextView)))
 
+        ).check(isCompletelyBelow(withId(R.id.titleTextView)))
         onView(withId(R.id.removeButton)).perform(click())
         onView(withId(R.id.titleTextView)).check(doesNotExist())
 
+        Log.d("recreate","идет пересоздание активити")
         activityScenarioRule.scenario.recreate()
         onView(withId(R.id.titleTextView)).check(doesNotExist())
     }
+
 }
