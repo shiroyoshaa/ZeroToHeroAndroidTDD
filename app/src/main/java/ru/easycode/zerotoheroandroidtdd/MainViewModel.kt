@@ -1,21 +1,30 @@
 package ru.easycode.zerotoheroandroidtdd
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Delay
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class MainViewModel @Inject constructor(var liveDataWrapper: LiveDataWrapper, var repository: Repository) : ViewModel() {
+class MainViewModel(private val  liveDataWrapper: LiveDataWrapper, private val repository: Repository) : ViewModel() {
+
+    fun livaData():LiveData<UiState> {
+
+        return liveDataWrapper.liveData()
+
+    }
     fun load() {
+
         viewModelScope.launch {
-            repository.load()
+
             liveDataWrapper.update(UiState.ShowProgress)
+
+            repository.load()
+
             liveDataWrapper.update(UiState.ShowData)
+
         }
     }
 }
