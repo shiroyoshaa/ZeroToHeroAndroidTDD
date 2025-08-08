@@ -52,11 +52,10 @@ class MainViewModelTest {
         repository.expectResponse(SimpleResponse(text = "testingText"))
 
         viewModel.load()
-        liveDataWrapper.checkUpdateCalls(
-            listOf(
+        liveDataWrapper.checkUpdateCalls(listOf(
                 UiState.ShowProgress,
                 UiState.ShowData(text = "testingText")
-            )
+        )
         )
         repository.checkLoadCalledTimes(1)
 
