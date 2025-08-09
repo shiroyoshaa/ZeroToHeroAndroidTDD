@@ -1,4 +1,10 @@
 package ru.easycode.zerotoheroandroidtdd
 
-interface SimpleResponse {
-}
+import org.w3c.dom.Text
+
+data class SimpleResponse(
+
+    val text: String,
+
+)
+

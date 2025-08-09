@@ -1,11 +1,13 @@
 package ru.easycode.zerotoheroandroidtdd
 
-interface UiState {
-    object ShowProgress : UiState {
-    }
-    companion object {
-        fun ShowData(text: String) {
+import java.io.Serializable
 
-        }
+interface UiState : Serializable {
+
+
+    object ShowProgress: UiState {}
+
+    class ShowData(private val text: String): UiState {
+
     }
 }
