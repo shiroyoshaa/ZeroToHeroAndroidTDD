@@ -16,17 +16,17 @@ interface BundleWrapper {
     }
     interface Mutable: Save, Restore
 
-    class Base(private val savingState: Bundle): Save, Restore {
+    class Base(private val savingState: Bundle): Mutable {
         companion object {
             private const val KEY = "KEY"
         }
         override fun save(uiState: UiState) {
-            savingState.putSerializable("KEY",uiState::class.java)
+            savingState.putSerializable(KEY,uiState)
         }
 
         override fun restore(): UiState {
             return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                savingState.getSerializable("KEY",UiState::class.java) as UiState
+                savingState.getSerializable(KEY,UiState::class.java) as UiState
             } else {
                 TODO("VERSION.SDK_INT < TIRAMISU")
             }

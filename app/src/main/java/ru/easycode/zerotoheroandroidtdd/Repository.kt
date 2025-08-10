@@ -10,12 +10,8 @@ interface Repository {
 
     class Base(private var service: SimpleService, private val url: String): Repository {
         override suspend fun load(): SimpleResponse {
-            val retrofit = Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-            service = retrofit.create(SimpleService::class.java)
-            return SimpleResponse("testing text")
+            val response = service.fetch(url)
+            return response
         }
     }
 }

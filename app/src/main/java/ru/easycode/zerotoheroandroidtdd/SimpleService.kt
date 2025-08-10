@@ -2,15 +2,9 @@ package ru.easycode.zerotoheroandroidtdd
 
 import retrofit2.http.GET
 import retrofit2.http.Query
+import retrofit2.http.Url
 
 interface SimpleService {
-
-    suspend fun fetch(url: String): SimpleResponse
-
-    class Base: SimpleService {
-        @GET
-        override suspend fun fetch(url: String): SimpleResponse {
-
-        }
-    }
+    @GET
+    suspend fun fetch(@Url url: String): SimpleResponse
 }
