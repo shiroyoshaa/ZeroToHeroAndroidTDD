@@ -84,6 +84,7 @@ class Task022Test {
             )
         ).check(isCompletelyBelow(withText("first text")))
 
+        
         onView(withId(R.id.inputEditText)).perform(typeText("third text"))
         onView(withId(R.id.actionButton)).perform(click())
         onView(withId(R.id.inputEditText)).check(matches(withText("")))
