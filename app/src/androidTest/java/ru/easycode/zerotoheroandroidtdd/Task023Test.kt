@@ -77,6 +77,7 @@ class Task023Test {
 
 
         for (i in 0..10) {
+
             onView(withId(R.id.inputEditText)).perform(typeText("text number $i"))
             onView(withId(R.id.actionButton)).perform(click())
             onView(withId(R.id.inputEditText)).check(matches(withText("")))
