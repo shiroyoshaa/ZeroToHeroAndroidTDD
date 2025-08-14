@@ -20,16 +20,11 @@ class TvAdapter: RecyclerView.Adapter<TvHolder>() {
     override fun onBindViewHolder(holder: TvHolder, position: Int) {
         holder.setText(example[position])
     }
-    fun addExample(text: CharSequence) {
-        example.add(text)
-        Log.e("testingAdapter","fun addExample in adapter - ${text.toString()}")
-        notifyDataSetChanged()
-    }
     fun set(list: List<CharSequence>) {
+        example.clear()
         example.addAll(list)
-    }
-    fun getValueFromList(): ArrayList<CharSequence> {
-        return example
+        Log.d("fatal", "its set from tvadapter")
+        notifyDataSetChanged()
     }
 }
 

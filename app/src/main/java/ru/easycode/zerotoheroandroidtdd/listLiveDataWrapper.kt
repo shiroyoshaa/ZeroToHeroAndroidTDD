@@ -3,6 +3,7 @@ package ru.easycode.zerotoheroandroidtdd
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import androidx.transition.ChangeTransform
 
 interface ListLiveDataWrapper {
@@ -12,21 +13,27 @@ interface ListLiveDataWrapper {
     fun add(new: CharSequence)
     fun liveData(): LiveData<List<CharSequence>>
 
-    class Base(private val adapter: TvAdapter,private val liveData: MutableLiveData<List<CharSequence>> = SingleLiveEvent()): ListLiveDataWrapper {
+    class Base(private val liveData: MutableLiveData<ArrayList<CharSequence>> = SingleLiveEvent()
+    ): ListLiveDataWrapper {
         override fun update(list: List<CharSequence>) {
-            liveData.value = list
+            liveData.value = ArrayList(list)
         }
 
         override fun save(bundle: BundleWrapper.Save) {
-            bundle.save(adapter.getValueFromList())
+            liveData.value?.let {
+                bundle.save(it)
+            }
         }
 
         override fun add(new: CharSequence) {
-            adapter.addExample(new)
+            val currentList = liveData.value?: ArrayList()
+            currentList.add(new)
+            Log.e("fatal",currentList.toString())
+            update(currentList)
         }
 
         override fun liveData(): LiveData<List<CharSequence>> {
-            return liveData
+            return liveData.map { it.toList() }
         }
     }
 }

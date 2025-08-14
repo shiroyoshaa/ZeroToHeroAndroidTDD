@@ -7,7 +7,7 @@ class MainViewModel(private val listLiveDataWrapper: ListLiveDataWrapper): ViewM
 
     fun liveData() = listLiveDataWrapper.liveData()
 
-    fun add(text: CharSequence) {
+    fun add(text: String) {
         Log.e("testingAdapter","fun add in viewModel - ${text.toString()}")
         listLiveDataWrapper.add(text)
     }
