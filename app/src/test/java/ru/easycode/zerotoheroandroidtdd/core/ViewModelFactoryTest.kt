@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import ru.easycode.zerotoheroandroidtdd.main.ProvideViewModel
+import ru.easycode.zerotoheroandroidtdd.main.ViewModelFactory
 
 class ViewModelFactoryTest {
 
