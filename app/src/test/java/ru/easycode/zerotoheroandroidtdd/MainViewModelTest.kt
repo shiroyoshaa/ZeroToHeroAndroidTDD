@@ -54,6 +54,7 @@ private interface FakeListLiveDataWrapper : ListLiveDataWrapper {
         }
 
         override fun add(new: CharSequence) {
+
             list.add(new)
         }
 

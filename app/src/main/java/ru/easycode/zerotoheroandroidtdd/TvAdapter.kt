@@ -3,6 +3,7 @@ package ru.easycode.zerotoheroandroidtdd
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.easycode.zerotoheroandroidtdd.databinding.TvForadapterBinding
 
@@ -20,11 +21,13 @@ class TvAdapter: RecyclerView.Adapter<TvHolder>() {
     override fun onBindViewHolder(holder: TvHolder, position: Int) {
         holder.setText(example[position])
     }
-    fun set(list: List<CharSequence>) {
+    fun set(newList: List<CharSequence>) {
+        val diffUtil = DiffUtilCallBack(example,newList)
+        val diff = DiffUtil.calculateDiff(diffUtil)
+
         example.clear()
-        example.addAll(list)
-        Log.d("fatal", "its set from tvadapter")
-        notifyDataSetChanged()
+        example.addAll(newList)
+        diff.dispatchUpdatesTo(this)
     }
 }
 
@@ -33,4 +36,28 @@ class TvHolder(private val binding: TvForadapterBinding): RecyclerView.ViewHolde
     fun setText(text: CharSequence) {
         binding.elementTextView.text = text.toString()
     }
+}
+
+private class DiffUtilCallBack(
+    private val old: List<CharSequence>,
+    private val new: List<CharSequence>,
+): DiffUtil.Callback() {
+    override fun getOldListSize() = old.size
+
+    override fun getNewListSize() = new.size
+
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        if(old[oldItemPosition] == new[newItemPosition])
+            return true
+        else
+            return false
+    }
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        if(old[oldItemPosition] == new[newItemPosition])
+            return true
+        else
+            return false
+    }
+
 }

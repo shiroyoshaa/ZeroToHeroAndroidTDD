@@ -4,36 +4,34 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
-import androidx.transition.ChangeTransform
 
 interface ListLiveDataWrapper {
-
-    fun update(list: List<CharSequence>)
-    fun save(bundle: BundleWrapper.Save)
     fun add(new: CharSequence)
+    fun save(bundle: BundleWrapper.Save)
+    fun update(list: List<CharSequence>)
     fun liveData(): LiveData<List<CharSequence>>
+    class Base(private val liveData: MutableLiveData<ArrayList<CharSequence>> = SingleLiveEvent()): ListLiveDataWrapper {
+        override fun add(new: CharSequence) {
+            var currentList = liveData.value ?: ArrayList()
+            Log.d("listLiveData",currentList.toString())
+            currentList.add(new)
+            val list: List<CharSequence> = currentList!!
 
-    class Base(private val liveData: MutableLiveData<ArrayList<CharSequence>> = SingleLiveEvent()
-    ): ListLiveDataWrapper {
-        override fun update(list: List<CharSequence>) {
-            liveData.value = ArrayList(list)
+            update(list)
         }
-
         override fun save(bundle: BundleWrapper.Save) {
             liveData.value?.let {
                 bundle.save(it)
             }
         }
 
-        override fun add(new: CharSequence) {
-            val currentList = liveData.value?: ArrayList()
-            currentList.add(new)
-            Log.e("fatal",currentList.toString())
-            update(currentList)
+        override fun update(list: List<CharSequence>) {
+            liveData.value = ArrayList(list)
         }
 
         override fun liveData(): LiveData<List<CharSequence>> {
             return liveData.map { it.toList() }
         }
+
     }
 }

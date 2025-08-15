@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
         binding.actionButton.setOnClickListener {
             val txt = binding.inputEditText.text.toString()
-            Log.e("testingAdapter","button is clicked with text - ${txt.toString()}")
             viewModel.add(txt)
             binding.inputEditText.setText("")
         }
