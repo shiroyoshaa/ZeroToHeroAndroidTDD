@@ -5,7 +5,7 @@ import ru.easycode.zerotoheroandroidtdd.list.ListScreen
 
 class MainViewModel(private val navigation: Navigation.Mutable): ViewModel() {
     fun init(firstRun: Boolean) {
-        if (firstRun == true)
+        if (firstRun)
             navigation.update(ListScreen)
     }
 }
