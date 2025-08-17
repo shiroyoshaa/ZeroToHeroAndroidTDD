@@ -6,7 +6,7 @@ interface ProvideViewModel {
     fun <T: ViewModel> viewModel(viewModelClass: Class<T>): T
     class Base: ProvideViewModel {
         override fun <T : ViewModel> viewModel(viewModelClass: Class<T>): T {
-            return TODO("Provide the return value")
+            return viewModelClass.getDeclaredConstructor().apply { isAccessible = true }.newInstance()
         }
     }
 }
