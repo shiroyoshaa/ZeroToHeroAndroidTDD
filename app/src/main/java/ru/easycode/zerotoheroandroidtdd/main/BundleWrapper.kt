@@ -1,5 +1,7 @@
 package ru.easycode.zerotoheroandroidtdd.main
 
+import android.os.Bundle
+
 interface BundleWrapper {
     interface Save {
         fun save(list: ArrayList<CharSequence>)
@@ -9,15 +11,17 @@ interface BundleWrapper {
     }
     interface Mutable: Save,Restore
 
-    class Base: Mutable {
+    class Base(private val bundle: Bundle): Mutable {
+        companion object {
+            private const val KEY = "KEY"
+        }
         override fun save(list: ArrayList<CharSequence>) {
-            TODO("Not yet implemented")
+            bundle.putCharSequenceArrayList(KEY,list)
         }
 
         override fun restore(): List<CharSequence> {
-            TODO("Not yet implemented")
+           return bundle.getCharSequenceArrayList(KEY)!!
         }
-
     }
 
 }
