@@ -1,9 +1,9 @@
-package ru.easycode.zerotoheroandroidtdd.main
+package ru.easycode.zerotoheroandroidtdd.list
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import ru.easycode.zerotoheroandroidtdd.core.SingleLiveEvent
+import ru.easycode.zerotoheroandroidtdd.main.BundleWrapper
 
 interface ListLiveDataWrapper {
     interface Add {
@@ -18,25 +18,26 @@ interface ListLiveDataWrapper {
     interface Update{
         fun update(value: List<CharSequence>)
     }
-    interface Mutable: Add,Save, ListLiveDataWrapper.LiveData, Update
+    interface Mutable: Add, Save, LiveData, Update
     interface All: Mutable
-    class Base(private val liveData: MutableLiveData<ArrayList<CharSequence>> = SingleLiveEvent()): All {
+    class Base(private val liveData: MutableLiveData<ArrayList<CharSequence>> = SingleLiveEvent()):
+        All {
         override fun add(source: CharSequence) {
 
         }
 
         override fun save(bundleWrapper: BundleWrapper.Save) {
-           liveData.value?.let {
-               bundleWrapper.save(it)
-           }
+            liveData.value?.let {
+                bundleWrapper.save(it)
+            }
         }
 
         override fun liveData(): androidx.lifecycle.LiveData<List<CharSequence>> {
-                 return liveData.map { it.toList() }
+            return liveData.map { it.toList() }
         }
 
         override fun update(value: List<CharSequence>) {
-          liveData.value = ArrayList(value)
+            liveData.value = ArrayList(value)
         }
 
     }

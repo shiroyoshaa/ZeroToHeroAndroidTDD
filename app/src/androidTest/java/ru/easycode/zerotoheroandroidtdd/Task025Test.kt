@@ -27,7 +27,7 @@ import ru.easycode.zerotoheroandroidtdd.main.ListActivity
  * @see test_input_enough_text_and_comeback      !!!!!!!!!!!
  *
  * 5. To go forward you will need to solve CreateViewModelTest
- * @see ru.easycode.zerotoheroandroidtdd.create.CreateViewModelTest
+ * @see ru.easycode.zerotoheroandroidtdd.create.CreateViewModelTest  !!!!!!!!!!!
  *
  * 6.So now you can go with next 2 tests here
  * @see test_create_one_item

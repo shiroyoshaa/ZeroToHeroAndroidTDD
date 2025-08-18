@@ -5,7 +5,6 @@ import org.junit.Test
 import ru.easycode.zerotoheroandroidtdd.create.CreateScreen
 import ru.easycode.zerotoheroandroidtdd.main.BundleWrapper
 import ru.easycode.zerotoheroandroidtdd.main.FakeNavigation
-import ru.easycode.zerotoheroandroidtdd.main.ListLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.main.Navigation
 import ru.easycode.zerotoheroandroidtdd.main.ViewModels.ListViewModel
 

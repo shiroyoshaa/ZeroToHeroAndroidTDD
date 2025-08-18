@@ -1,5 +1,6 @@
 package ru.easycode.zerotoheroandroidtdd.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,11 +13,16 @@ class CreateActivity: AppCompatActivity() {
         binding = CreateFarmLayoutBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        val intent = Intent(this,ListActivity::class.java)
+        binding.createButton.setOnClickListener {
+
+            startActivity(intent)
+        }
         binding.inputEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int, ) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int, ) {
-                binding.createButton.isEnabled = binding.inputEditText.text.toString().length == 3
+                binding.createButton.isEnabled = binding.inputEditText.text.toString().length >= 3
             }
 
             override fun afterTextChanged(s: Editable?) {}
