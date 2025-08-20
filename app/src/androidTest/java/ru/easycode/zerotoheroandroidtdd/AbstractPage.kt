@@ -21,10 +21,13 @@ abstract class AbstractPage(protected val root: Int) {
     }
 
     fun checkNotVisibleNow() {
+
         onView(
             allOf(
+
                 isAssignableFrom(FrameLayout::class.java),
                 withId(root)
+
             )
         ).check(doesNotExist())
     }

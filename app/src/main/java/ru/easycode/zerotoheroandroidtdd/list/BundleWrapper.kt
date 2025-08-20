@@ -1,4 +1,4 @@
-package ru.easycode.zerotoheroandroidtdd.main
+package ru.easycode.zerotoheroandroidtdd.list
 
 import android.os.Bundle
 
@@ -9,7 +9,7 @@ interface BundleWrapper {
     interface Restore{
         fun restore(): List<CharSequence>
     }
-    interface Mutable: Save,Restore
+    interface Mutable: Save, Restore
 
     class Base(private val bundle: Bundle): Mutable {
         companion object {

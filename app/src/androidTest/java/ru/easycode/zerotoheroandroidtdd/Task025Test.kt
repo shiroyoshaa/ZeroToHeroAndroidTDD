@@ -3,11 +3,10 @@ package ru.easycode.zerotoheroandroidtdd
 import androidx.test.espresso.Espresso.pressBack
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import ru.easycode.zerotoheroandroidtdd.main.ListActivity
+import ru.easycode.zerotoheroandroidtdd.Activities.ListActivity
 /**
  * Instructions to go through this task:
  *
@@ -30,8 +29,8 @@ import ru.easycode.zerotoheroandroidtdd.main.ListActivity
  * @see ru.easycode.zerotoheroandroidtdd.create.CreateViewModelTest  !!!!!!!!!!!
  *
  * 6.So now you can go with next 2 tests here
- * @see test_create_one_item
- * @see test_create_many_items
+ * @see test_create_one_item !!!!!!!!!!!
+ * @see test_create_many_items !!!!!!!!!!!
  *
  * 7. Before the last test here you will need to solve ListViewModelTest#test_save_and_restore
  * @see ru.easycode.zerotoheroandroidtdd.list.ListViewModelTest !!!!!!!
@@ -122,6 +121,7 @@ class Task025Test {
 
     @Test
     fun test_create_many_items() {
+
         val listPage = ListPage()
         val createPage = CreatePage()
 
