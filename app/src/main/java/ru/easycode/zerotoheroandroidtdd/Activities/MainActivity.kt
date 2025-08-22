@@ -1,35 +1,33 @@
 package ru.easycode.zerotoheroandroidtdd.Activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import ru.easycode.zerotoheroandroidtdd.App
+import androidx.lifecycle.ViewModel
+import ru.easycode.zerotoheroandroidtdd.R
+import ru.easycode.zerotoheroandroidtdd.core.ProvideViewModel
 import ru.easycode.zerotoheroandroidtdd.databinding.ActivityMainBinding
-import ru.easycode.zerotoheroandroidtdd.list.ListScreen
 import ru.easycode.zerotoheroandroidtdd.main.ViewModels.MainViewModel
 
-class MainActivity: AppCompatActivity() {
+class MainActivity: AppCompatActivity(), ProvideViewModel {
 
-    lateinit var viewModel: MainViewModel
-    lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: MainViewModel
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = (application as App).mainViewModel
-        viewModel.init(true)
-
-        viewModel.liveData().observe(this) { screen ->
-            when(screen) {
-                is ListScreen -> {
-                    val intent = Intent(this, ListActivity::class.java)
-                    startActivity(intent)
-                }
-            }
+        viewModel = viewModel(MainViewModel::class.java)
+        viewModel.init(savedInstanceState == null)
+        viewModel.liveData().observe(this) {
+            Log.d("fatal","observing is state screen now is $it")
+            it.show(supportFragmentManager,binding.container.id)
         }
     }
 
+    override fun <T : ViewModel> viewModel(viewModelClass: Class<T>): T {
+        return (application as ProvideViewModel).viewModel(viewModelClass)
+    }
 }

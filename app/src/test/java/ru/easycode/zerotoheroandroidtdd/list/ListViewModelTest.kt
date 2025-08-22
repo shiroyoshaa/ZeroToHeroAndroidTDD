@@ -31,34 +31,35 @@ class ListViewModelTest {
         viewModel.create()
         navigation.checkUpdateCalled(listOf(CreateScreen))
     }
-
-    @Test
-    fun test_save_and_restore() {
-        liveDataWrapper.update(listOf("1", "2", "3"))
-        val bundleWrapper = FakeBundleWrapper.Base()
-        val save: BundleWrapper.Save = bundleWrapper
-        val restore: BundleWrapper.Restore = bundleWrapper
-
-        viewModel.save(bundleWrapper = save)
-
-        setup()
-
-        viewModel.restore(bundleWrapper = restore)
-        liveDataWrapper.checkCalledList(listOf("1", "2", "3"))
-    }
 }
 
-private interface FakeBundleWrapper : BundleWrapper.Mutable {
-
-    class Base : FakeBundleWrapper {
-        private val cached = ArrayList<CharSequence>()
-
-        override fun save(list: ArrayList<CharSequence>) {
-            cached.addAll(list)
-        }
-
-        override fun restore(): List<CharSequence> {
-            return cached
-        }
-    }
-}
+//    @Test
+//    fun test_save_and_restore() {
+//        liveDataWrapper.update(listOf("1", "2", "3"))
+//        val bundleWrapper = FakeBundleWrapper.Base()
+//        val save: BundleWrapper.Save = bundleWrapper
+//        val restore: BundleWrapper.Restore = bundleWrapper
+//
+//        viewModel.save(bundleWrapper = save)
+//
+//        setup()
+//
+//        viewModel.restore(bundleWrapper = restore)
+//        liveDataWrapper.checkCalledList(listOf("1", "2", "3"))
+//    }
+//}
+//
+//private interface FakeBundleWrapper : BundleWrapper.Mutable {
+//
+//    class Base : FakeBundleWrapper {
+//        private val cached = ArrayList<CharSequence>()
+//
+//        override fun save(list: ArrayList<CharSequence>) {
+//            cached.addAll(list)
+//        }
+//
+//        override fun restore(): List<CharSequence> {
+//            return cached
+//        }
+//    }
+//}

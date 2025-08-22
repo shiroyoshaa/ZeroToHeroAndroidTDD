@@ -1,53 +1,38 @@
 package ru.easycode.zerotoheroandroidtdd.list
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import ru.easycode.zerotoheroandroidtdd.core.SingleLiveEvent
+import ru.easycode.zerotoheroandroidtdd.main.Navigation.Mutable
+import ru.easycode.zerotoheroandroidtdd.main.Screen
 
 interface ListLiveDataWrapper {
+    interface Read: LiveDataWrapper.Read<List<CharSequence>>
+    interface Update: LiveDataWrapper.Update<List<CharSequence>>
+    interface Mutable: Read,Update {
 
+        fun save(bundleWrapper: BundleWrapper.Save)
+    }
     interface Add {
         fun add(source: CharSequence)
     }
+    interface All: Mutable,Add
 
-    interface Save {
-        fun save(bundleWrapper: BundleWrapper.Save)
-    }
-
-    interface LiveData {
-        fun liveData(): androidx.lifecycle.LiveData<List<CharSequence>>
-    }
-
-    interface Update{
-        fun update(value: List<CharSequence>)
-    }
-
-    interface Mutable: Add, Save, LiveData, Update
-
-    interface All: Mutable
-
-    class Base(private val liveData: MutableLiveData<ArrayList<CharSequence>> = SingleLiveEvent()):
-        All {
-        override fun add(source: CharSequence) {
-            val currentList = liveData.value?: ArrayList()
-            currentList?.add(source)
-            val list: List<CharSequence> = currentList!!
-            update(value = list)
-        }
-
+    class Base: LiveDataWrapper.Abstract<List<CharSequence>>(),All {
         override fun save(bundleWrapper: BundleWrapper.Save) {
-            liveData.value?.let {
-                bundleWrapper.save(it)
+            liveData.value.let {
+                bundleWrapper.save(ArrayList(it))
             }
         }
 
-        override fun liveData(): androidx.lifecycle.LiveData<List<CharSequence>> {
-            return liveData.map { it.toList() }
-        }
-
-        override fun update(value: List<CharSequence>) {
-            liveData.value = ArrayList(value)
+        override fun add(source: CharSequence) {
+            val currentList = liveData.value?: ArrayList()
+            val newList = ArrayList(currentList)
+            newList.add(source)
+            update(newList)
         }
 
     }
 }
+

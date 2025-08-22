@@ -1,8 +1,7 @@
 package ru.easycode.zerotoheroandroidtdd.create
 
 
+import ru.easycode.zerotoheroandroidtdd.R
 import ru.easycode.zerotoheroandroidtdd.main.Screen
 
-object CreateScreen: Screen {
-
-}
+object CreateScreen: Screen.Add(CreateFragment::class.java)

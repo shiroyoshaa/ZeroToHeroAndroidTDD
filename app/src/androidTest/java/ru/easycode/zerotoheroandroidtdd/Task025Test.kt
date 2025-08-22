@@ -6,7 +6,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import ru.easycode.zerotoheroandroidtdd.Activities.ListActivity
+import ru.easycode.zerotoheroandroidtdd.Activities.MainActivity
+
 /**
  * Instructions to go through this task:
  *
@@ -42,7 +43,7 @@ import ru.easycode.zerotoheroandroidtdd.Activities.ListActivity
 class Task025Test {
 
     @get:Rule
-    var activityScenarioRule = ActivityScenarioRule(ListActivity::class.java)
+    var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
     fun test_navigate_to_create_screen() {
