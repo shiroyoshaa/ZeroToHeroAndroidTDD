@@ -9,14 +9,20 @@ import ru.easycode.zerotoheroandroidtdd.main.Screen
 
 
 class ListViewModel(private val liveDataWrapper: ListLiveDataWrapper.Mutable,
-                    private val navigation: Navigation.Update): ViewModel(),ListLiveDataWrapper.Read {
+                    private val navigation: Navigation.Update): ViewModel() {
 
     fun create() {
         navigation.update(CreateScreen)
     }
 
+    fun liveData() = liveDataWrapper.read()
 
-    override fun read(): LiveData<List<CharSequence>> {
-        return read()
+    fun save(bundleWrapper:BundleWrapper.Save) {
+        liveDataWrapper.save(bundleWrapper)
+    }
+    fun restore(bundleWrapper: BundleWrapper.Restore) {
+        val newList = bundleWrapper.restore()
+        liveDataWrapper.update(newList
+        )
     }
 }

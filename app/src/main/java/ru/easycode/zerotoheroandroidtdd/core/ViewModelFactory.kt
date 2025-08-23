@@ -16,7 +16,6 @@ interface ViewModelFactory: ProvideViewModel,ClearViewModel {
             } else {
                 val viewModel = provideViewModel.viewModel(viewModelClass)
                 list[viewModelClass] = viewModel
-                Log.d("fatal","else in factory $viewModel")
                 viewModel
             }
         }

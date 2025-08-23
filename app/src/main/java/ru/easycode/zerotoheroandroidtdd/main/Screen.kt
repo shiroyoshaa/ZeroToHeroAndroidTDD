@@ -9,9 +9,6 @@ import ru.easycode.zerotoheroandroidtdd.create.CreateFragment
 import ru.easycode.zerotoheroandroidtdd.list.ListFragment
 
 interface Screen {
-    object Pop : Replace(ListFragment::class.java)
-
-
     fun show(supportFragmentManager: FragmentManager, containerId: Int)
 
     abstract class Replace(private val fragmentClass: Class<out Fragment>,): Screen {
@@ -28,6 +25,11 @@ interface Screen {
                 .add(containerId,fragmentClass.getDeclaredConstructor().newInstance())
                 .addToBackStack(fragmentClass.name)
                 .commit()
+        }
+    }
+    object Pop : Screen {
+        override fun show(supportFragmentManager: FragmentManager, containerId: Int) {
+            supportFragmentManager.popBackStack()
         }
     }
 }

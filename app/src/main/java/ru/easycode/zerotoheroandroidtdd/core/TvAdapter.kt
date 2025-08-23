@@ -1,4 +1,4 @@
-package ru.easycode.zerotoheroandroidtdd.list
+package ru.easycode.zerotoheroandroidtdd.core
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -33,7 +33,6 @@ class TvAdapter: RecyclerView.Adapter<TvHodlder>() {
         list.addAll(newList)
 
         diff.dispatchUpdatesTo(this)
-    //на время, потом написать DiffUtilCallBAckk!
     }
 
 }

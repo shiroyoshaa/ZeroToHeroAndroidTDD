@@ -13,14 +13,13 @@ class CreateViewModel(private val addLiveDataWrapper: ListLiveDataWrapper.Add,
     ): ViewModel(){
         fun add (text: String) {
             addLiveDataWrapper.add(text)
-            navigation.update(Screen.Pop)
-            clearViewModel.clear(CreateViewModel::class.java)
+            comeback()
 
         }
 
 
-//    fun comeback() {
-//        navigation.update(Screen.Pop)
-//        clearViewModel.clear(CreateViewModel::class.java)
-//    }
+    fun comeback() {
+        navigation.update(Screen.Pop)
+        clearViewModel.clear(CreateViewModel::class.java)
+    }
 }

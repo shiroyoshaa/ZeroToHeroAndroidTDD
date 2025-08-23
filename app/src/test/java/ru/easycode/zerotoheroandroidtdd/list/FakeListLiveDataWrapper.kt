@@ -23,7 +23,7 @@ interface FakeListLiveDataWrapper : ListLiveDataWrapper.All {
             bundleWrapper.save(calledList)
         }
 
-        override fun liveData(): LiveData<List<CharSequence>> {
+        override fun read(): LiveData<List<CharSequence>> {
             throw IllegalStateException("not used in tests")
         }
 
