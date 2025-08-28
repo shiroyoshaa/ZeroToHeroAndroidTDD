@@ -4,15 +4,22 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.Dispatchers
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import ru.easycode.zerotoheroandroidtdd.add.AddViewModel
+import ru.easycode.zerotoheroandroidtdd.core.ClearViewModel
+import ru.easycode.zerotoheroandroidtdd.core.ListLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.core.Repository
+import kotlin.jvm.java
 
 class AddViewModelTest {
 
     @Test
     fun test_add() {
+
         val order = Order()
         val repository = FakeAddRepository.Base(order)
         val liveDataWrapper = FakeAddLiveDataWrapper.Base(order)
         val clear = FakeClearViewModel.Base(order)
+
         val viewModel =
             AddViewModel(
                 repository = repository,

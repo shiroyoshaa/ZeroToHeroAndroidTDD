@@ -1,6 +1,7 @@
 package ru.easycode.zerotoheroandroidtdd
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -9,6 +10,9 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import ru.easycode.zerotoheroandroidtdd.core.ItemCache
+import ru.easycode.zerotoheroandroidtdd.core.ItemsDao
+import ru.easycode.zerotoheroandroidtdd.core.ItemsDataBase
 import java.io.IOException
 
 /**
