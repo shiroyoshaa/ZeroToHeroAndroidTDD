@@ -32,7 +32,7 @@ class AddPage : AbstractPage(R.id.addLayout) {
                 withParent(isAssignableFrom(rootClass)),
                 withParent(withId(root)),
                 isAssignableFrom(TextInputEditText::class.java),
-                withId(R.id.addInputEditText)
+                withId(R. id.addInputEditText)
             )
         ).perform(typeText(text), closeSoftKeyboard())
     }

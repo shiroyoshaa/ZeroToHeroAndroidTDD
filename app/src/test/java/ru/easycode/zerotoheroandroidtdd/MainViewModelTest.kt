@@ -2,6 +2,10 @@ package ru.easycode.zerotoheroandroidtdd
 
 import kotlinx.coroutines.Dispatchers
 import org.junit.Test
+import ru.easycode.zerotoheroandroidtdd.dataBase.Item
+import ru.easycode.zerotoheroandroidtdd.dataBase.ItemUi
+import ru.easycode.zerotoheroandroidtdd.core.Repository
+import ru.easycode.zerotoheroandroidtdd.main.MainViewModel
 
 class MainViewModelTest {
 
@@ -27,6 +31,7 @@ class MainViewModelTest {
         )
     }
 }
+
 
 private interface FakeRepository : Repository.Read {
 
