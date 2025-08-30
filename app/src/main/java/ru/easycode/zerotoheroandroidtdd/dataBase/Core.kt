@@ -10,6 +10,5 @@ class Core(private val context: Context) {
         ItemsDataBase::class.java,
         "item_database"
     ).build()
-
     fun dao() = db.itemsDao()
 }

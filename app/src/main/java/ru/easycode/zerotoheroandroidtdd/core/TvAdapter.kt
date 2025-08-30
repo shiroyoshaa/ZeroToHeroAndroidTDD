@@ -8,22 +8,22 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.easycode.zerotoheroandroidtdd.dataBase.ItemUi
 import ru.easycode.zerotoheroandroidtdd.databinding.TvForAdaptBinding
 import ru.easycode.zerotoheroandroidtdd.delete.DeleteBottomSheet
+import ru.easycode.zerotoheroandroidtdd.delete.ItemUiDelete
 
-class TvAdapter(private val fragmentManager: FragmentManager): RecyclerView.Adapter<TvHolder>() {
+class TvAdapter(private val itemUiDelete: ItemUiDelete): RecyclerView.Adapter<TvHolder>() {
     val oldList: ArrayList<ItemUi> = ArrayList()
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
     ): TvHolder {
-        return TvHolder(fragmentManager,binding = TvForAdaptBinding.inflate(LayoutInflater.from(parent.context)))
+        return TvHolder(itemUiDelete,binding = TvForAdaptBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
     override fun onBindViewHolder(
         holder: TvHolder,
         position: Int,
     ) {
-        val itemUiCopy = oldList[position]
-        holder.setText( itemUiCopy.id,itemUiCopy.text)
+        holder.setText(oldList[position])
     }
 
     override fun getItemCount(): Int {
@@ -44,14 +44,12 @@ class TvAdapter(private val fragmentManager: FragmentManager): RecyclerView.Adap
 
 }
 
-class TvHolder(private val fragmentManager: FragmentManager,
+class TvHolder(private val itemUiDelete: ItemUiDelete,
                private val binding: TvForAdaptBinding): RecyclerView.ViewHolder(binding.root) {
-    fun setText(id: Long, text: String) {
-
-        binding.elementTextView.text = text
-        binding.elementTextView.setOnClickListener {
-            val deleteBottomSheet = DeleteBottomSheet(id,text)
-            deleteBottomSheet.show(fragmentManager,"deleteBottomSheet")
+    fun setText(itemUi: ItemUi) {
+        itemUi.show(binding.elementTextView)
+        itemView.setOnClickListener {
+            itemUi.delete(itemUiDelete)
         }
     }
 }

@@ -10,26 +10,45 @@ import ru.easycode.zerotoheroandroidtdd.databinding.DeleteLayoutBinding
 import java.text.AttributedString
 
 
-class DeleteBottomSheet(private val id: Long,private val text: String): BottomSheetDialogFragment() {
+class DeleteBottomSheet(): BottomSheetDialogFragment() {
     private var _binding: DeleteLayoutBinding? = null
     private val binding get() = _binding!!
     lateinit var viewModel: DeleteViewModel
+    companion object {
+        fun newInstance(itemId: Long): DeleteBottomSheet {
+            val instance = DeleteBottomSheet()
+            instance.arguments = Bundle().apply {
+                putLong(KEY,itemId)
+            }
+            return instance
+        }
+        private const val KEY = "itemIdToDelete"
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         viewModel = (activity as ProvideViewModel).viewModel(DeleteViewModel::class.java)
         _binding = DeleteLayoutBinding.inflate(inflater,container,false)
-        binding.itemTitleTextView.text = text
 
+        val itemId = requireArguments().getLong(KEY)
+
+        viewModel.init(itemId)
 
         binding.deleteButton.setOnClickListener {
-            viewModel.delete(id)
+            viewModel.delete(itemId)
             dismiss()
         }
+
+        viewModel.liveData.observe(viewLifecycleOwner) {
+            binding.itemTitleTextView.text = it
+        }
+
         return binding.root
     }
+
 
     override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)

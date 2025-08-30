@@ -1,12 +1,14 @@
 package ru.easycode.zerotoheroandroidtdd.delete
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.easycode.zerotoheroandroidtdd.core.ClearViewModel
 import ru.easycode.zerotoheroandroidtdd.dataBase.ItemUi
 import ru.easycode.zerotoheroandroidtdd.core.ListLiveDataWrapper
@@ -18,10 +20,20 @@ class DeleteViewModel(private val deleteLiveDataWrapper: ListLiveDataWrapper.All
     private val dispatcherMain: CoroutineDispatcher = Dispatchers.Main,
 ): ViewModel() {
 
-    val liveData: MutableLiveData<String> = MutableLiveData()
+    private val innerliveData = MutableLiveData<String>()
+
+
+    val liveData: LiveData<String>
+        get() = innerliveData
+
 
     fun init(itemId: Long) {
-        liveData.value = itemId.toString()
+        viewModelScope.launch(dispatcher) {
+            val itemText = repository.item(itemId).text
+            withContext(dispatcherMain) {
+                innerliveData.value = itemText
+            }
+        }
     }
 
     fun delete(itemId: Long) {

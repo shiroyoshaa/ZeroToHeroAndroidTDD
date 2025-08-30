@@ -9,6 +9,8 @@ import ru.easycode.zerotoheroandroidtdd.core.ProvideViewModel
 import ru.easycode.zerotoheroandroidtdd.core.TvAdapter
 import ru.easycode.zerotoheroandroidtdd.databinding.ActivityMainBinding
 import ru.easycode.zerotoheroandroidtdd.delete.DeleteBottomSheet
+import ru.easycode.zerotoheroandroidtdd.delete.ItemUiDelete
+import ru.easycode.zerotoheroandroidtdd.delete.MyClass
 
 class MainActivity : AppCompatActivity(), ProvideViewModel {
     lateinit var viewModel: MainViewModel
@@ -24,8 +26,19 @@ class MainActivity : AppCompatActivity(), ProvideViewModel {
 
 
         val bottomSheet = AddBottomSheet()
+        val newObject = object : ItemUiDelete {
+            override fun delete(id: Long) {
+                DeleteBottomSheet.newInstance(id)
+                    .show(supportFragmentManager,"tag")
+            }
+        }
 
-        val adapter = TvAdapter(supportFragmentManager)
+        val textBtn = MyClass.TEXT
+
+        MyClass.setButtonText(binding.addButton,textBtn)
+
+        val adapter = TvAdapter( newObject)
+
         binding.recyclerView.adapter = adapter
         binding.addButton.setOnClickListener {
             bottomSheet.show(supportFragmentManager,"bottomShit")

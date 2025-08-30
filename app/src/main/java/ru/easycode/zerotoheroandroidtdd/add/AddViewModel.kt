@@ -20,6 +20,7 @@ class AddViewModel(private val repository: Repository.Add,
 
     fun add(value: String) {
         viewModelScope.launch(dispatcher) {
+
             val longValue = repository.add(value)
             liveDataWrapper.add(ItemUi(id = longValue,text = value))
 

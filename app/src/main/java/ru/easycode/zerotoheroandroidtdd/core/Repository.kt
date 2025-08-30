@@ -17,8 +17,8 @@ interface Repository {
         fun item(id: Long): Item
     }
 
-    interface Mutable: Read, Add, Delete
-    interface All: Mutable
+    interface Mutable: Read, Add
+    interface All: Mutable, Delete
     class Base(private val dataSource: ItemsDao, private val now: Now): All {
 
         override fun list(): List<Item> {
