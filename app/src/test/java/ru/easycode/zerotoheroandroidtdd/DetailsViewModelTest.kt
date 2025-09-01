@@ -34,7 +34,7 @@ class DetailsViewModelTest {
             repository = repository,
             clear = clear,
             dispatcher = Dispatchers.Unconfined,
-            dispatcherMain = Dispatchers.Unconfined
+            dispatcherMain = Dispatchers.Unconfined,
         )
     }
 

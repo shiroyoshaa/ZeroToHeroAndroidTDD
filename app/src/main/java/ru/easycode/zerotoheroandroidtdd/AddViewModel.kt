@@ -1,0 +1,31 @@
+package ru.easycode.zerotoheroandroidtdd
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
+class AddViewModel(private val repository: Repository.Add,
+    private val liveDataWrapper:ListLiveDataWrapper.Add,
+    private val clear: ClearViewModel,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val dispatcherMain: CoroutineDispatcher = Dispatchers.Main,
+
+): ViewModel() {
+
+    fun add(value: String) {
+        viewModelScope.launch(dispatcher) {
+                val id = repository.add(value)
+                val itemUi = ItemUi(id = id,text = value)
+            withContext(dispatcherMain) {
+                liveDataWrapper.add(itemUi)
+            }
+        }
+        comeback()
+    }
+    fun comeback() {
+        clear.clearViewModel(AddViewModel::class.java)
+    }
+}

@@ -1,5 +1,11 @@
+
 package ru.easycode.zerotoheroandroidtdd
 
+import org.junit.Assert.assertEquals
+import ru.easycode.zerotoheroandroidtdd.AddViewModel
+import ru.easycode.zerotoheroandroidtdd.FakeClearViewModel
+import ru.easycode.zerotoheroandroidtdd.ListLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.Repository
 import kotlinx.coroutines.Dispatchers
 import org.junit.Assert.assertEquals
 import org.junit.Test

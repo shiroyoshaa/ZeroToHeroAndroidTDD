@@ -6,12 +6,11 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 
-class MainPage : AbstractPage(R.id.rootLayout) {
 
+class MainPage : AbstractPage(R.id.rootLayout) {
     fun clickAddButton() {
         onView(withId(R.id.addButton)).perform(click())
     }
-
     fun checkItem(position: Int, text: String) {
         onView(
             RecyclerViewMatcher(R.id.recyclerView).atPosition(

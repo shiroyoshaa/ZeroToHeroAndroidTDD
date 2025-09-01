@@ -72,7 +72,7 @@ class Task028Test {
         detailsPage.checkVisibleNow()
         detailsPage.checkText("second item in the list")
         Espresso.pressBack()
-        detailsPage.checkNotVisibleNow()
+        detailsPage.checkNotVisibleNow()    
         mainPage.checkItem(position = 0, text = "first item in the list")
         mainPage.checkItem(position = 1, text = "second item in the list")
 
