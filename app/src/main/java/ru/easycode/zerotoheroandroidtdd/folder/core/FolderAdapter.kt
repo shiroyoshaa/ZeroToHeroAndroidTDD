@@ -16,9 +16,9 @@ class FolderAdapter(
         return FolderViewHolder(FolderForAdaptBinding.inflate(LayoutInflater.from(parent.context)))
     }
     override fun onBindViewHolder(holder: FolderViewHolder, position: Int) {
+        holder.setFolders(oldList[position])
         holder.itemView.setOnClickListener {
             onItemClick(oldList[position])
-            holder.setFolders(oldList[position])
         }
     }
 
@@ -29,7 +29,7 @@ class FolderAdapter(
     fun setFolders(newList: List<FolderUi>) {
         oldList.clear()
         oldList.addAll(newList)
-        notifyDataSetChanged() //временно, позже написать DiffUtl
+        notifyDataSetChanged() // TODO: позже написать diffutil
     }
 }
 

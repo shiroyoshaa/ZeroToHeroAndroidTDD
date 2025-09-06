@@ -11,6 +11,7 @@ import ru.easycode.zerotoheroandroidtdd.R
 import ru.easycode.zerotoheroandroidtdd.core.ClearViewModels
 import ru.easycode.zerotoheroandroidtdd.core.ProvideViewModel
 import ru.easycode.zerotoheroandroidtdd.databinding.FoldersLayoutBinding
+import ru.easycode.zerotoheroandroidtdd.folder.core.Folder
 import ru.easycode.zerotoheroandroidtdd.folder.core.FolderAdapter
 
 class FolderListFragment: Fragment(R.layout.folders_layout) {
@@ -23,16 +24,19 @@ class FolderListFragment: Fragment(R.layout.folders_layout) {
         val viewModel = (activity as ProvideViewModel).viewModel(FolderListViewModel::class.java)
         Log.d("fatal","onViewCreated")
         _binding = FoldersLayoutBinding.bind(view)
+
         val adapter = FolderAdapter {
             viewModel.folderDetails(it)
         }
-        binding.foldersRecyclerView.adapter = adapter
 
+        binding.foldersRecyclerView.adapter = adapter
 
         viewModel.init()
 
         binding.addButton.setOnClickListener {
+
             viewModel.addFolder()
+
         }
 
         viewModel.liveData().observe(viewLifecycleOwner) {

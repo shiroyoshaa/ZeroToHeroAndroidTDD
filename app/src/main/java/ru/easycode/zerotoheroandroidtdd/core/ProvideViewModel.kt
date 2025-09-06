@@ -5,10 +5,13 @@ import androidx.lifecycle.ViewModelProvider
 import ru.easycode.zerotoheroandroidtdd.folder.core.FolderLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.folder.core.FoldersRepository
 import ru.easycode.zerotoheroandroidtdd.folder.create.CreateFolderViewModel
+import ru.easycode.zerotoheroandroidtdd.folder.details.FolderDetailsViewModel
 import ru.easycode.zerotoheroandroidtdd.folder.list.FolderListLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.folder.list.FolderListViewModel
 import ru.easycode.zerotoheroandroidtdd.main.MainViewModel
 import ru.easycode.zerotoheroandroidtdd.main.Navigation
+import ru.easycode.zerotoheroandroidtdd.note.core.NoteListLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.note.core.NotesRepository
 import ru.easycode.zerotoheroandroidtdd.note.core.Now
 
 interface ProvideViewModel {
@@ -38,12 +41,14 @@ interface ProvideViewModel {
         private val folderRepository = FoldersRepository.Base(now,foldersDao,notesDao)
         private val foldersListLiveData = FolderListLiveDataWrapper.Base()
         private val foldersLiveData = FolderLiveDataWrapper.Base()
+        private val notesRepository = NotesRepository.Base(now,notesDao)
+        private val noteListLiveData = NoteListLiveDataWrapper.Base()
         override fun <T : ViewModel> viewModel(clasz: Class<T>): T {
             return when(clasz) {
                 MainViewModel::class.java -> MainViewModel(navigation)
                 FolderListViewModel:: class.java -> FolderListViewModel(folderRepository,foldersListLiveData,foldersLiveData,navigation)
-                CreateFolderViewModel::class.java -> CreateFolderViewModel(folderRepository,
-                    foldersListLiveData,navigation,clear)
+                CreateFolderViewModel::class.java -> CreateFolderViewModel(folderRepository, foldersListLiveData,navigation,clear)
+                FolderDetailsViewModel::class.java -> FolderDetailsViewModel(notesRepository,)
                 else -> throw IllegalStateException()
             } as T
         }
