@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/folderLinearLayout"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+    >
+
+    <TextView
+        android:id="@+id/folderTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="example of folder title"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/folderCountTextView"
+        android:padding="20dp"
+        android:textSize="20sp"
+        android:text="5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

@@ -1,0 +1,40 @@
+package ru.easycode.zerotoheroandroidtdd.note.create
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import ru.easycode.zerotoheroandroidtdd.core.ClearViewModels
+import ru.easycode.zerotoheroandroidtdd.folder.core.FolderLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.folder.details.FolderDetailsScreen
+import ru.easycode.zerotoheroandroidtdd.folder.details.NoteUi
+import ru.easycode.zerotoheroandroidtdd.main.Navigation
+import ru.easycode.zerotoheroandroidtdd.note.core.NoteListLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.note.core.NotesRepository
+
+class CreateNoteViewModel(
+    private val folderLiveDataWrapper: FolderLiveDataWrapper.Increment,
+    private val addLiveDataWrapper: NoteListLiveDataWrapper.Create,
+    private val repository: NotesRepository.Create,
+    private val navigation: Navigation.Update,
+    private val clear: ClearViewModels,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val dispatcherMain: CoroutineDispatcher = Dispatchers.Main,
+
+    ): ViewModel() {
+
+    fun createNote(folderId: Long,text: String) {
+        viewModelScope.launch(dispatcher) {
+            val id = repository.createNote(folderId,text)
+            folderLiveDataWrapper.increment()
+            val noteUi = NoteUi(id,text,folderId)
+            addLiveDataWrapper.create(noteUi)
+        }
+        comeback()
+    }
+    fun comeback() {
+        clear.clear(CreateNoteViewModel::class.java)
+        navigation.update(FolderDetailsScreen)
+    }
+}

@@ -1,0 +1,6 @@
+package ru.easycode.zerotoheroandroidtdd.folder.details
+
+import ru.easycode.zerotoheroandroidtdd.folder.create.CreateFolderFragment
+import ru.easycode.zerotoheroandroidtdd.main.Screen
+
+object FolderDetailsScreen: Screen.Replace( CreateFolderFragment())
