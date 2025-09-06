@@ -11,7 +11,7 @@ interface Navigation {
         fun liveData(): LiveData<Screen>
     }
     interface Mutable: Update, Read
-    class Base(private val liveData: MutableLiveData<Screen> = MutableLiveData()): Mutable {
+    class Base(private val liveData: MutableLiveData<Screen> = SingleLiveEvent()): Mutable {
         override fun update(screen: Screen) {
             liveData.value = screen
         }

@@ -20,12 +20,14 @@ class FolderListFragment: Fragment(R.layout.folders_layout) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val viewModel = (activity as ProvideViewModel).viewModel(FolderListViewModel::class.java)
         Log.d("fatal","onViewCreated")
         _binding = FoldersLayoutBinding.bind(view)
-        val adapter = FolderAdapter()
+        val adapter = FolderAdapter {
+            viewModel.folderDetails(it)
+        }
         binding.foldersRecyclerView.adapter = adapter
-        val viewModel = (activity as ProvideViewModel).viewModel(FolderListViewModel::class.java)
+
 
         viewModel.init()
 

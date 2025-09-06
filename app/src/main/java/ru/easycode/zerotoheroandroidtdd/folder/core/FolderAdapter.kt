@@ -7,15 +7,19 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.easycode.zerotoheroandroidtdd.databinding.FolderForAdaptBinding
 import ru.easycode.zerotoheroandroidtdd.folder.list.FolderUi
 
-class FolderAdapter: RecyclerView.Adapter<FolderViewHolder>() {
+class FolderAdapter(
+    private val onItemClick: (FolderUi) -> Unit
+): RecyclerView.Adapter<FolderViewHolder>() {
     private val oldList: ArrayList<FolderUi> = ArrayList()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FolderViewHolder {
 
         return FolderViewHolder(FolderForAdaptBinding.inflate(LayoutInflater.from(parent.context)))
     }
     override fun onBindViewHolder(holder: FolderViewHolder, position: Int) {
-        holder.setFolders(oldList[position])
+        holder.itemView.setOnClickListener {
+            onItemClick(oldList[position])
+            holder.setFolders(oldList[position])
+        }
     }
 
     override fun getItemCount(): Int {
@@ -25,7 +29,7 @@ class FolderAdapter: RecyclerView.Adapter<FolderViewHolder>() {
     fun setFolders(newList: List<FolderUi>) {
         oldList.clear()
         oldList.addAll(newList)
-        notifyDataSetChanged()
+        notifyDataSetChanged() //временно, позже написать DiffUtl
     }
 }
 
