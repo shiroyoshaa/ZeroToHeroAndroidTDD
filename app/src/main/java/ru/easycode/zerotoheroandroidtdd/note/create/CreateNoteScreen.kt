@@ -7,5 +7,4 @@ import ru.easycode.zerotoheroandroidtdd.main.Screen
 
 data class CreateNoteScreen (
     val folderId: Long,
-
-): Screen.Replace( CreateFolderFragment())
+): Screen.Replace(CreateNoteFragment.newInstance(folderId))

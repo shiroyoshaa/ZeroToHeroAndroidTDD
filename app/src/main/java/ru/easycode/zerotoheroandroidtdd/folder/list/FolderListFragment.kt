@@ -22,7 +22,7 @@ class FolderListFragment: Fragment(R.layout.folders_layout) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewModel = (activity as ProvideViewModel).viewModel(FolderListViewModel::class.java)
-        Log.d("fatal","onViewCreated")
+        Log.d("folderList","onViewCreated")
         _binding = FoldersLayoutBinding.bind(view)
 
         val adapter = FolderAdapter {
@@ -33,40 +33,17 @@ class FolderListFragment: Fragment(R.layout.folders_layout) {
 
         viewModel.init()
 
+        viewModel.liveData().observe(viewLifecycleOwner) {
+            Log.d("folderList","live data observe in FolderListfragment")
+            adapter.setFolders(it)
+        }
+
         binding.addButton.setOnClickListener {
 
             viewModel.addFolder()
 
         }
 
-        viewModel.liveData().observe(viewLifecycleOwner) {
-            Log.d("lifecycler","live data observe in FolderListfragment")
-            adapter.setFolders(it)
-        }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-        Log.d("lifecycler","onViewCreate")
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d("lifecycler","onCreate")
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        Log.d("lifecycler","onViewStateRestored")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("lifecycler","OOOON DESTROOOOOOOOOOOOY")
     }
 }
 

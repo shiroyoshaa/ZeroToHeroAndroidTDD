@@ -1,5 +1,6 @@
 package ru.easycode.zerotoheroandroidtdd.note.edit
 
+import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -11,8 +12,9 @@ import ru.easycode.zerotoheroandroidtdd.core.FakeNavigation.Companion.NAVIGATE
 import ru.easycode.zerotoheroandroidtdd.core.Order
 import ru.easycode.zerotoheroandroidtdd.folder.core.FolderLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.folder.details.FolderDetailsScreen
-import ru.easycode.zerotoheroandroidtdd.folder.details.NoteListLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.note.core.MyNote
+import ru.easycode.zerotoheroandroidtdd.folder.details.NoteListLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.note.core.NoteLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.note.core.NotesRepository
 
 class EditNoteViewModelTest {
@@ -109,6 +111,10 @@ private interface FakeNoteLiveDataWrapper : NoteLiveDataWrapper {
         override fun update(noteText: String) {
             actual = noteText
             order.add(NOTE_LIVE_DATA)
+        }
+
+        override fun liveData(): LiveData<String> {
+            throw IllegalStateException("not used in test")
         }
     }
 }

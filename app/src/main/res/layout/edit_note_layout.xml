@@ -3,27 +3,36 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/createFolderRootLayout"
-    android:background="@color/white"
+    android:id="@+id/editNoteRootLayout"
     >
 
     <TextView
-        style="@style/textViewStyle"
+        android:id="@+id/editNoteTitleTextView"
         android:layout_gravity="center"
-        android:id="@+id/createFolderTextView"
-        android:text="Input folder name"
+        style="@style/textViewStyle"
+        android:text="rename note"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/createFolderEditText"
+        android:id="@+id/noteEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+    <Button
+        android:id="@+id/saveEditNoteButton"
+        android:text="save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <Button
-        android:id="@+id/saveFolderButton"
-        android:text="save"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
+        android:id="@+id/deleteNoteButton"
+        android:text="delete"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </LinearLayout>

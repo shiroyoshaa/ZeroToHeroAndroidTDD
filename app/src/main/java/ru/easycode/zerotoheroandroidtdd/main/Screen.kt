@@ -9,13 +9,13 @@ interface Screen {
     abstract class Replace(private val fragment: Fragment): Screen {
         override fun show(fragmentManager: FragmentManager, containerId: Int) {
             fragmentManager.beginTransaction().apply {
-                replace(containerId,fragment,"prev_tab")
-                addToBackStack(null)
+                replace(containerId,fragment)
                 commit()
             }
         }
     }
 
+}
 //    abstract class Add(private val fragment: Fragment,private val previousFragment: Fragment): Screen {
 //
 //        override fun show(fragmentManager: FragmentManager, containerId: Int) {
@@ -25,4 +25,3 @@ interface Screen {
 //                .commit()
 //        }
 //    }
-}

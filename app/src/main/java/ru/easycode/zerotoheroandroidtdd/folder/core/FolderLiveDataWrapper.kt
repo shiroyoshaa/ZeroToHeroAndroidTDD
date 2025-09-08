@@ -1,5 +1,6 @@
 package ru.easycode.zerotoheroandroidtdd.folder.core
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
@@ -46,6 +47,7 @@ interface FolderLiveDataWrapper {
         }
 
         override fun increment() {
+            Log.d("noteTest","increment")
             val currentFolderUi = liveData.value
             currentFolderUi!!.notesCount++
             update(currentFolderUi)

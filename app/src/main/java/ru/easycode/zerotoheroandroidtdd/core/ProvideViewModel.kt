@@ -10,9 +10,13 @@ import ru.easycode.zerotoheroandroidtdd.folder.list.FolderListLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.folder.list.FolderListViewModel
 import ru.easycode.zerotoheroandroidtdd.main.MainViewModel
 import ru.easycode.zerotoheroandroidtdd.main.Navigation
-import ru.easycode.zerotoheroandroidtdd.note.core.NoteListLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.folder.details.NoteListLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.folder.edit.EditFolderViewModel
+import ru.easycode.zerotoheroandroidtdd.note.core.NoteLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.note.core.NotesRepository
 import ru.easycode.zerotoheroandroidtdd.note.core.Now
+import ru.easycode.zerotoheroandroidtdd.note.create.CreateNoteViewModel
+import ru.easycode.zerotoheroandroidtdd.note.edit.EditNoteViewModel
 
 interface ProvideViewModel {
     fun <T : ViewModel> viewModel(clasz: Class<T>): T
@@ -36,19 +40,25 @@ interface ProvideViewModel {
             }
         }
     }
+
     class Base(notesDao: NotesDao,foldersDao: FoldersDao,now: Now,private val clear: ClearViewModels): ProvideViewModel {
+
         private val navigation = Navigation.Base()
         private val folderRepository = FoldersRepository.Base(now,foldersDao,notesDao)
         private val foldersListLiveData = FolderListLiveDataWrapper.Base()
         private val foldersLiveData = FolderLiveDataWrapper.Base()
         private val notesRepository = NotesRepository.Base(now,notesDao)
         private val noteListLiveData = NoteListLiveDataWrapper.Base()
+        private val noteLiveData = NoteLiveDataWrapper.Base()
         override fun <T : ViewModel> viewModel(clasz: Class<T>): T {
             return when(clasz) {
                 MainViewModel::class.java -> MainViewModel(navigation)
                 FolderListViewModel:: class.java -> FolderListViewModel(folderRepository,foldersListLiveData,foldersLiveData,navigation)
                 CreateFolderViewModel::class.java -> CreateFolderViewModel(folderRepository, foldersListLiveData,navigation,clear)
-                FolderDetailsViewModel::class.java -> FolderDetailsViewModel(notesRepository,)
+                FolderDetailsViewModel::class.java -> FolderDetailsViewModel(notesRepository,noteListLiveData,foldersLiveData,navigation,clear)
+                EditFolderViewModel::class.java -> EditFolderViewModel(foldersLiveData,folderRepository,navigation,clear)
+                CreateNoteViewModel::class.java -> CreateNoteViewModel(foldersLiveData,noteListLiveData,notesRepository,navigation,clear)
+                EditNoteViewModel::class.java -> EditNoteViewModel(foldersLiveData,noteLiveData,noteListLiveData,notesRepository,navigation,clear)
                 else -> throw IllegalStateException()
             } as T
         }

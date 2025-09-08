@@ -4,19 +4,21 @@ android:id="@+id/folderLinearLayout"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:orientation="horizontal"
+    android:background="#FFCFCF"
     >
 
     <TextView
+        style="@style/textViewStyle"
         android:id="@+id/folderTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="example of folder title"
-        android:textSize="20sp" />
+        android:text="example of folder title" />
 
     <TextView
+        style="@style/textViewStyle"
         android:id="@+id/folderCountTextView"
-        android:padding="20dp"
-        android:textSize="20sp"
+
+
         android:text="5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

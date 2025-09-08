@@ -1,13 +1,14 @@
-package ru.easycode.zerotoheroandroidtdd.note.core
+package ru.easycode.zerotoheroandroidtdd.folder.details
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
-import ru.easycode.zerotoheroandroidtdd.folder.details.NoteUi
+
 
 interface NoteListLiveDataWrapper {
 
-    interface Updates {
+    interface UpdateSecond {
         fun update(notes: List<NoteUi>)
     }
 
@@ -23,13 +24,14 @@ interface NoteListLiveDataWrapper {
         fun liveData(): LiveData<List<NoteUi>>
     }
 
-    interface UpdateListAndRead: Updates, Update, Read
-    interface All: UpdateListAndRead, Create
+    interface UpdateListAndRead: UpdateSecond, Read
+    interface All: UpdateListAndRead, Create, Update
 
     class Base(private val liveData: MutableLiveData<ArrayList<NoteUi>> = MutableLiveData()): All {
 
         override fun update(notes: List<NoteUi>) {
-            liveData.value = ArrayList(notes)
+            val newArray = ArrayList(notes)
+            liveData.value = newArray
         }
 
         override fun update(noteId: Long, newText: String) {

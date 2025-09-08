@@ -1,16 +1,18 @@
 package ru.easycode.zerotoheroandroidtdd.folder.details
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.easycode.zerotoheroandroidtdd.core.ClearViewModels
 import ru.easycode.zerotoheroandroidtdd.folder.core.FolderLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.folder.edit.EditFolderScreen
 import ru.easycode.zerotoheroandroidtdd.folder.list.FoldersListScreen
 import ru.easycode.zerotoheroandroidtdd.main.Navigation
-import ru.easycode.zerotoheroandroidtdd.note.core.NoteListLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.folder.details.NoteListLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.note.core.NotesRepository
 import ru.easycode.zerotoheroandroidtdd.note.create.CreateNoteScreen
 import ru.easycode.zerotoheroandroidtdd.note.edit.EditNoteScreen
@@ -23,19 +25,25 @@ class FolderDetailsViewModel(private val noteListRepository: NotesRepository.Rea
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val dispatcherMain: CoroutineDispatcher = Dispatchers.Main,
 
-): ViewModel(){
+): ViewModel() {
+
     fun init() {
-        val folderId = folderLiveDataWrapper.folderId() //folderId
+        val folderId = folderLiveDataWrapper.folderId()
         viewModelScope.launch(dispatcher) {
-            val listMyNote = noteListRepository.noteList(folderId).map { NoteUi(
-                id = it.id,
-                title = it.title,
-                folderId = it.folderId,
-            ) } // list myNote
-            liveDataWrapper.update(listMyNote)
+            val listMyNote = noteListRepository.noteList(folderId).map {
+                NoteUi(
+                    id = it.id,
+                    title = it.title,
+                    folderId = it.folderId,
+                )
+            } // list myNote
+            withContext(dispatcherMain) {
+                liveDataWrapper.update(listMyNote)
+            }
         }
     }
-    fun createNote(){
+
+    fun createNote() {
         val folderId = folderLiveDataWrapper.folderId()
 
         navigation.update(CreateNoteScreen(folderId))
@@ -55,4 +63,6 @@ class FolderDetailsViewModel(private val noteListRepository: NotesRepository.Rea
         clear.clear(FolderDetailsViewModel::class.java)
         navigation.update(FoldersListScreen)
     }
+    fun liveData() = folderLiveDataWrapper.liveData()
+    fun noteLiveData() = liveDataWrapper.liveData()
 }

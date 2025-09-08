@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
+
 import androidx.fragment.app.Fragment
 import ru.easycode.zerotoheroandroidtdd.R
 import ru.easycode.zerotoheroandroidtdd.core.ProvideViewModel
@@ -22,28 +24,13 @@ class CreateFolderFragment: Fragment(R.layout.create_folder_layout) {
         val viewModel = (activity as ProvideViewModel).viewModel(CreateFolderViewModel::class.java)
 
         _binding = CreateFolderLayoutBinding.bind(view)
-        binding
+
         binding.saveFolderButton.setOnClickListener {
             viewModel.createFolder(binding.createFolderEditText.text.toString())
             binding.createFolderEditText.setText("")
         }
-    }
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-        Log.d("fatal","onViewCreate in CreateFolder")
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d("fatal","onCreate in CreateFolder")
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        Log.d("fatal","onViewStateRestored in CreateFolder")
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            viewModel.comeback()
+        }
     }
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.easycode.zerotoheroandroidtdd.core.ClearViewModels
 import ru.easycode.zerotoheroandroidtdd.folder.core.FolderLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.folder.core.FoldersRepository
@@ -23,7 +24,9 @@ class EditFolderViewModel(private val folderLiveDataWrapper: FolderLiveDataWrapp
     fun renameFolder(folderId: Long, newName: String) {
         viewModelScope.launch(dispatcher) {
             repository.rename(folderId,newName)
-            folderLiveDataWrapper.rename(newName)
+            withContext(dispatcherMain) {
+                folderLiveDataWrapper.rename(newName)
+            }
         }
         comeback()
 

@@ -12,7 +12,7 @@ import ru.easycode.zerotoheroandroidtdd.folder.core.FoldersRepository
 import ru.easycode.zerotoheroandroidtdd.folder.create.CreateFolderScreen
 import ru.easycode.zerotoheroandroidtdd.folder.details.FolderDetailsScreen
 import ru.easycode.zerotoheroandroidtdd.main.Navigation
-import ru.easycode.zerotoheroandroidtdd.note.core.LiveData
+
 
 class FolderListViewModel(private val repository: FoldersRepository.ReadList,
     private val listLiveDataWrapper: FolderListLiveDataWrapper.UpdateListAndRead,
@@ -23,11 +23,9 @@ class FolderListViewModel(private val repository: FoldersRepository.ReadList,
 ): ViewModel() {
 
     fun init() {
-        Log.d("lifecycler","fun init in FolderListViewModel")
         viewModelScope.launch(dispatcher) {
             val folders = repository.folders()
             val newFolderUi = folders.map {
-
                 FolderUi(
                     id = it.id,
                     title = it.title,

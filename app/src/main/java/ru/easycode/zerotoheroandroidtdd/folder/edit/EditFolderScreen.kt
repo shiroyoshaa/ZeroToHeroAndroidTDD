@@ -7,4 +7,4 @@ import ru.easycode.zerotoheroandroidtdd.main.Screen
 
 data class  EditFolderScreen(
     val folderId: Long,
-): Screen.Replace(CreateFolderFragment())
+): Screen.Replace(EditFolderFragment.newInstance(folderId))

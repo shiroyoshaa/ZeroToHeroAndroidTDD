@@ -5,11 +5,12 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.easycode.zerotoheroandroidtdd.core.ClearViewModels
 import ru.easycode.zerotoheroandroidtdd.folder.core.FolderLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.folder.details.FolderDetailsScreen
 import ru.easycode.zerotoheroandroidtdd.main.Navigation
-import ru.easycode.zerotoheroandroidtdd.note.core.NoteListLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.folder.details.NoteListLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.note.core.NoteLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.note.core.NotesRepository
 
@@ -27,17 +28,20 @@ class EditNoteViewModel(
 
     fun init(noteId: Long) {
         viewModelScope.launch(dispatcher) {
-
             val myNote = repository.note(noteId)
+            withContext(dispatcherMain) {
             noteLiveDataWrapper.update(myNote.title)
+            }
         }
     }
     fun deleteNote(noteId: Long) {
         viewModelScope.launch(dispatcher) {
             repository.deleteNote(noteId)
-            folderLiveDataWrapper.decrement()
-            comeback()
+            withContext(dispatcherMain) {
+                folderLiveDataWrapper.decrement()
+            }
         }
+        comeback()
     }
 
     fun renameNote(noteId:Long,newText: String) {
@@ -52,4 +56,7 @@ class EditNoteViewModel(
         clear.clear(EditNoteViewModel::class.java)
         navigation.update(FolderDetailsScreen)
     }
+
+    fun liveData() = noteLiveDataWrapper.liveData()
+
 }

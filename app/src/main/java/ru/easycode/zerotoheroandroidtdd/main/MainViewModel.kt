@@ -9,7 +9,6 @@ class MainViewModel(private val navigation: Navigation.Mutable): ViewModel() {
 
     fun init(firstRun: Boolean) {
         if (firstRun){
-                Log.d("fatal","init in mainViewModel")
                 navigation.update(FoldersListScreen)
             }
     }
